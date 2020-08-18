@@ -72,7 +72,7 @@ export class DownloadService {
       this.downloadingAlert.dismiss();
       return result;
     } catch (error) {
-      this.returnDownloadError('error downloading file: ', error);
+      return this.returnDownloadError('error downloading file: ', error);
     }
   }
 

@@ -4,6 +4,7 @@ ion-card {
   display: inline-block;
   margin: 0 30px 30px;
   max-width: 450px;
+  min-width: 360px;
 
   @media #{$xsmall} {
     margin-left: 10px;

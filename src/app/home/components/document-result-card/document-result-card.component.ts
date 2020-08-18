@@ -11,4 +11,14 @@ import * as Helpers from '../../../helpers';
 export class DocumentResultCardComponent {
   @Input() itemInfo: BoaResource;
   @Output() openDetails = new EventEmitter();
+
+  get showDescription(): boolean {
+    return this.itemInfo.metadata.general.description &&
+      !!this.itemInfo.metadata.general.description.none;
+  }
+
+  get showTitle(): boolean {
+    return this.itemInfo.metadata.general.title &&
+      !!this.itemInfo.metadata.general.title.none;
+  }
 }

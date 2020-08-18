@@ -32,10 +32,10 @@ export class ImageResultCardComponent implements OnInit, OnChanges {
     this.resourceAboutUrl = this.imageItem.about;
     this.manifest = this.imageItem.manifest;
     this.metadata = this.imageItem.metadata;
-    this.alternateBaseRef = this.imageItem.id.split('/content/')[1];
+    this.alternateBaseRef = this.manifest.hasOwnProperty('entrypoint') ? this.manifest.entrypoint : this.imageItem.id.split('/content/')[1];
     const smallAlternateName = this.getSmallAlternateFileName();
     this.imageSrc = smallAlternateName ?
-      `${this.resourceAboutUrl}/!/.alternate/${this.alternateBaseRef}/${smallAlternateName}` : this.originalFileUrl;
+      `${this.resourceAboutUrl}/!/.alternate${this.alternateBaseRef ? '/' + this.alternateBaseRef : ''}/${smallAlternateName}` : this.originalFileUrl;
   }
 
   imageLoadError(): void {
@@ -61,5 +61,10 @@ export class ImageResultCardComponent implements OnInit, OnChanges {
     }
 
     return `${this.resourceAboutUrl}/!/`;
+  }
+
+  get showTitle(): boolean {
+    return this.metadata.general.title &&
+      !!this.metadata.general.title.none;
   }
 }

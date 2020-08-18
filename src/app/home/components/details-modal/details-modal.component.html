@@ -8,7 +8,10 @@
       <ion-icon class="icon" [name]="titleIcon" slot="start"></ion-icon>
       <div>
         <h4>
-          <span>{{ title }}</span>
+          <span *ngIf="showTitle; else noTitleTemplate">{{ title }}</span>
+          <ng-template #noTitleTemplate>
+            <span>Sin título definido</span>
+          </ng-template>
         </h4>
       </div>
       <ion-buttons slot="end">
@@ -43,11 +46,12 @@
     </ng-container>
 
     <div class="info-wrapper">
-      <div class="info-item" *ngIf="description">
+      <div class="info-item">
         <h4>Descripción:</h4>
-        <p>
-          {{ description }}
-        </p>
+        <p *ngIf="showDescription; else noDescriptionTemplate">{{ description }}</p>
+        <ng-template #noDescriptionTemplate>
+          <p class="description">Recurso sin descripción.</p>
+        </ng-template>
       </div>
       <div class="info-item" *ngIf="contributions && contributions.length">
         <h4>Contribuciones:</h4>
@@ -63,11 +67,12 @@
           </span>
         </div>
       </div>
-      <div class="info-item" *ngIf="keywords && keywords?.join(', ').length">
+      <div class="info-item">
         <h4>Palabras clave:</h4>
-        <p>
-          {{ keywords?.join(', ') }}
-        </p>
+        <p *ngIf="keywords && keywords?.join(', ').length; else noKeywords">{{ keywords?.join(', ') }}</p>
+        <ng-template #noKeywords>
+          <p>Sin palabras clave definidas</p>
+        </ng-template>
       </div>
       <div class="info-item" *ngIf="publishDate">
         <h4>Fecha de publicación:</h4>

@@ -37,4 +37,14 @@ export class GeneralResultCardComponent {
     return `${this.itemInfo.about}/!/`;
   }
 
+  get showDescription(): boolean {
+    return this.itemInfo.metadata.general.description &&
+      !!this.itemInfo.metadata.general.description.none;
+  }
+
+  get showTitle(): boolean {
+    return this.itemInfo.metadata.general.title &&
+      !!this.itemInfo.metadata.general.title.none;
+  }
+
 }

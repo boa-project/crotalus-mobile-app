@@ -10,6 +10,9 @@
   </div>
   <ion-card-header>
     <span class="repository-name">{{videoItem.repositoryName}}</span>
-    <ion-card-title>{{metadata.general.title.none}}</ion-card-title>
+    <ion-card-title *ngIf="showTitle; else noTitleTemplate">{{metadata.general.title.none}}</ion-card-title>
+    <ng-template #noTitleTemplate>
+      <ion-card-title>Sin título definido</ion-card-title>
+    </ng-template>
   </ion-card-header>
 </ion-card>

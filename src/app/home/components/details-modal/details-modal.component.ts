@@ -82,14 +82,14 @@ export class DetailsModalComponent implements OnInit, AfterViewChecked {
 
   assignLocalVariables() {
     const metadata = this.itemData.metadata;
-    this.alternateBaseRef = this.itemData.id.split('/content/')[1];
     this.manifest = this.itemData.manifest;
+    this.alternateBaseRef = this.manifest.hasOwnProperty('entrypoint') ? this.manifest.entrypoint : this.itemData.id.split('/content/')[1];
     this.format = metadata.technical.format;
     this.itemType = getResourceType(this.itemData);
     this.title = metadata.general.title.none;
     this.titleIcon = Helpers.getItemTypeIcon(this.itemType);
-    this.description = metadata.general.description.none;
-    this.imageSrc = `${this.itemAboutString}/!/.alternate/${this.alternateBaseRef}/${this.manifest.alternate[1]}`;
+    this.description = metadata.general.description && metadata.general.description.none;
+    this.imageSrc = `${this.itemAboutString}/!/.alternate${this.alternateBaseRef ? '/' + this.alternateBaseRef : ''}/${this.manifest.alternate[1]}`;
     this.keywords = metadata.general.keywords.none;
     this.contributions = metadata.lifecycle && metadata.lifecycle.contribution;
     this.publishDate = this.manifest.lastpublished.split('T')[0];
@@ -115,7 +115,7 @@ export class DetailsModalComponent implements OnInit, AfterViewChecked {
     if (size === 'original') {
       return this.originalFileUrl;
     } else {
-      return `${this.itemAboutString}/!/.alternate/${this.alternateBaseRef}/${size}`;
+      return `${this.itemAboutString}/!/.alternate${this.alternateBaseRef ? '/' + this.alternateBaseRef : ''}/${size}`;
     }
   }
 
@@ -156,7 +156,7 @@ export class DetailsModalComponent implements OnInit, AfterViewChecked {
     };
     const downloadedFile = await this.download(resource);
     if (downloadedFile === 'error') {
-      this.presentToast('Error en la descarga. Inténtalo de nuevo', 2000);
+      this.presentToast('Error en la descarga. Inténtalo de nuevo', 3000);
       return;
     }
     this.fileOpener.open((downloadedFile as FileEntry).toURL(), 'application/pdf')
@@ -247,5 +247,17 @@ export class DetailsModalComponent implements OnInit, AfterViewChecked {
 
   get showDocumentPlayer(): boolean {
     return (this.format === 'text/html' || this.format === 'application/pdf')
+  }
+
+  get showDescription(): boolean {
+    return this.itemData &&
+      this.itemData.metadata.general.description &&
+      !!this.itemData.metadata.general.description.none;
+  }
+
+  get showTitle(): boolean {
+    return this.itemData &&
+      this.itemData.metadata.general.title &&
+      !!this.itemData.metadata.general.title.none;
   }
 }

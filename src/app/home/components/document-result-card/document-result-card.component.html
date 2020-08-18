@@ -7,10 +7,16 @@
       <span class="repository-name">{{itemInfo.repositoryName}}</span>
     </div>
     <ion-card-header>
-      <ion-card-title>{{itemInfo.metadata.general.title.none}}</ion-card-title>
+      <ion-card-title *ngIf="showTitle; else noTitleTemplate">{{itemInfo.metadata.general.title.none}}</ion-card-title>
+      <ng-template #noTitleTemplate>
+        <ion-card-title>Sin título definido</ion-card-title>
+      </ng-template>
     </ion-card-header>
     <ion-card-content>
-      <p class="description">{{itemInfo.metadata.general.description.none}}</p>
+      <p class="description" *ngIf="showDescription; else noDescriptionTemplate">{{itemInfo.metadata.general.description.none}}</p>
+      <ng-template #noDescriptionTemplate>
+        <p class="description" (click)="openDetails.emit()">Recurso sin descripción.</p>
+      </ng-template>
       <p class="keywords">
         <em
           *ngIf="itemInfo.metadata.general.keywords && !!itemInfo.metadata.general.keywords.none.join(); else noKeywords"><strong>Palabras

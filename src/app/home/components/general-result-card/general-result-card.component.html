@@ -1,4 +1,5 @@
 <ion-card *ngIf="itemInfo" class="item-card">
+  
   <div class="content-wrapper">
     <div class="top-info-bar" (click)="openDetails.emit()">
       <ion-chip outline [ngClass]="{'image-type': itemInfo.type === searchTypes.image,
@@ -18,14 +19,20 @@
           [attr.size-lg]="itemInfo.type === searchTypes.audio ? 12 : 9"
           [attr.size-xlg]="itemInfo.type === searchTypes.audio ? 12 : 10" class="card-content-column">
           <ion-card-header (click)="openDetails.emit()">
-            <ion-card-title>{{itemInfo.metadata.general.title.none}}</ion-card-title>
+            <ion-card-title *ngIf="showTitle; else noTitleTemplate">{{itemInfo.metadata.general.title.none}}</ion-card-title>
+            <ng-template #noTitleTemplate>
+              <ion-card-title>Sin título definido</ion-card-title>
+            </ng-template>
           </ion-card-header>
           <ion-card-content>
             <p>
               <app-simple-audio-player class="audio-player" *ngIf="itemInfo.type === searchTypes.audio"
-                [audioSrc]="originalFileUrl" (playEvent)="playEvent.emit($event)"></app-simple-audio-player>
+              [audioSrc]="originalFileUrl" (playEvent)="playEvent.emit($event)"></app-simple-audio-player>
             </p>
-            <p class="description" (click)="openDetails.emit()">{{itemInfo.metadata.general.description.none}}</p>
+            <p class="description" *ngIf="showDescription; else noDescriptionTemplate" (click)="openDetails.emit()">{{itemInfo.metadata.general.description.none}}</p>
+            <ng-template #noDescriptionTemplate>
+              <p class="description" (click)="openDetails.emit()">Recurso sin descripción.</p>
+            </ng-template>
             <p class="keywords ion-hide-sm-down" (click)="openDetails.emit()">
               <em *ngIf="itemInfo.metadata.general.keywords && !!itemInfo.metadata.general.keywords.none.join(); else noKeywords"><strong>Palabras clave:
                 </strong>{{itemInfo.metadata.general.keywords.none.join(', ')}}</em>

@@ -31,11 +31,11 @@ export class VideoPlayerComponent implements OnChanges {
   setVideoProperties(): void {
     this.resourceAboutUrl = this.videoItem.about;
     this.manifest = this.videoItem.manifest;
-    this.alternateBaseRef = this.videoItem.id.split('/content/')[1];
+    this.alternateBaseRef = this.manifest.hasOwnProperty('entrypoint') ? this.manifest.entrypoint : this.videoItem.id.split('/content/')[1];
     this.format = this.videoItem.metadata.technical.format;
     const alternateAvailable = this.getVideoAlternate();
     this.videoSrc = alternateAvailable ?
-      `${this.resourceAboutUrl}/!/.alternate/${this.alternateBaseRef}/${alternateAvailable}#t=0.1` : `${this.originalFileUrl}#t=0.1`;
+      `${this.resourceAboutUrl}/!/.alternate${this.alternateBaseRef ? '/' + this.alternateBaseRef : ''}/${alternateAvailable}#t=0.1` : `${this.originalFileUrl}#t=0.1`;
   }
 
   getVideoAlternate(): string {

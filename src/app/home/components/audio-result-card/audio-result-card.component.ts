@@ -33,9 +33,7 @@ export class AudioResultCardComponent implements OnChanges {
     this.resourceAboutUrl = this.audioItem.about;
     this.manifest = this.audioItem.manifest;
     this.metadata = this.audioItem.metadata;
-    // this.alternateBaseRef = this.audioItem.id.split('/content/')[1];
     this.audioSource = this.originalFileUrl;
-    // this.previewUrl = this.getVideoPreviewUrl();
   }
 
   get originalFileUrl(): string {
@@ -50,4 +48,13 @@ export class AudioResultCardComponent implements OnChanges {
     return `${this.resourceAboutUrl}/!/`;
   }
 
+  get showDescription(): boolean {
+    return this.metadata.general.description &&
+      !!this.metadata.general.description.none;
+  }
+
+  get showTitle(): boolean {
+    return this.metadata.general.title &&
+      !!this.metadata.general.title.none;
+  }
 }

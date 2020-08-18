@@ -41,7 +41,7 @@ export class VideoResultCardComponent implements OnChanges, AfterViewInit {
     this.manifest = this.videoItem.manifest;
     this.metadata = this.videoItem.metadata;
     this.thumbnailAltText = `${this.videoItem.metadata.general.title.none} video thumbnail`;
-    this.alternateBaseRef = this.videoItem.id.split('/content/')[1];
+    this.alternateBaseRef = this.manifest.hasOwnProperty('entrypoint') ? this.manifest.entrypoint : this.videoItem.id.split('/content/')[1];
     this.thumbnailSrc = this.getThumbnailUrl();
     this.previewUrl = this.getVideoPreviewUrl();
   }
@@ -60,7 +60,7 @@ export class VideoResultCardComponent implements OnChanges, AfterViewInit {
   }
 
   getAlternateUrl(alternate: string): string {
-    return `${this.resourceAboutUrl}/!/.alternate/${this.alternateBaseRef}/${alternate}`;
+    return `${this.resourceAboutUrl}/!/.alternate${this.alternateBaseRef ? '/' + this.alternateBaseRef : ''}/${alternate}`;
   }
 
   setBackgroundImg(): void {
@@ -74,5 +74,10 @@ export class VideoResultCardComponent implements OnChanges, AfterViewInit {
       this.setBackgroundImg();
     }
     this.showPreview = show;
+  }
+
+  get showTitle(): boolean {
+    return this.metadata.general.title &&
+      !!this.metadata.general.title.none;
   }
 }

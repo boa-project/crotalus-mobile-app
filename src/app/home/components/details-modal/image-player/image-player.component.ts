@@ -29,11 +29,11 @@ export class ImagePlayerComponent implements OnChanges {
     this.resourceAboutUrl = this.imageItem.about;
     this.manifest = this.imageItem.manifest;
     this.altText = this.imageItem.metadata.general.title.none;
-    this.alternateBaseRef = this.imageItem.id.split('/content/')[1];
+    this.alternateBaseRef = this.manifest.hasOwnProperty('entrypoint') ? this.manifest.entrypoint : this.imageItem.id.split('/content/')[1];
     const smallAlternateName = this.getSmallAlternateFileName();
 
     this.imageSrc = smallAlternateName ?
-      `${this.resourceAboutUrl}/!/.alternate/${this.alternateBaseRef}/${smallAlternateName}` : this.originalFileUrl;
+      `${this.resourceAboutUrl}/!/.alternate${this.alternateBaseRef ? '/' + this.alternateBaseRef : ''}/${smallAlternateName}` : this.originalFileUrl;
     this.originalFileRequested = !smallAlternateName;
   }
 

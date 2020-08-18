@@ -340,6 +340,7 @@ export class HomePage implements OnInit, AfterViewChecked {
 
   ionViewWillLeave(): void {
     this.dismissCurrentToast();
+    this.shouldClearAudioPlaying();
   }
   
   ionViewDidEnter(): void {
