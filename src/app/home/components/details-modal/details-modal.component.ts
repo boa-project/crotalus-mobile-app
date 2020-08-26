@@ -125,8 +125,8 @@ export class DetailsModalComponent implements OnInit, AfterViewChecked {
 
   share(): void {
     const options = {
-      message: 'Hola!!, mira este recurso:', // not supported on some apps (Facebook, Instagram)
-      url: this.itemAboutString,
+      message: 'Hola!!, mira este recurso:',
+      url: this.itemAboutString + '.html',
     };
     this.socialSharing.shareWithOptions(options)
       // .then(result => { this.onShareSuccess(result) })
