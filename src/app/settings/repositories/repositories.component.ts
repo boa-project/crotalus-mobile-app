@@ -7,7 +7,7 @@ import { StorageKeys } from '../../models/storageKeys.enum';
 import { ToastController } from '@ionic/angular';
 
 interface RepositoryToShow extends BoaRepository {
-  connected: boolean
+  connected: boolean;
 }
 
 @Component({

@@ -1,3 +1,5 @@
+@import "mixins";
+
 ion-card {
   margin-bottom: 25px;
 }
@@ -13,6 +15,8 @@ ion-card-header {
     color: var(--ion-color-medium-tint);
     font-size: 13px;
     font-weight: 300; 
+    display: block;
+    @include repository-label-ellipsis;
   }
   
   ion-card-title {

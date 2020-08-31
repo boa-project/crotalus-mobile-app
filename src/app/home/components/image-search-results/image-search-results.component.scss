@@ -6,9 +6,12 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
+  width: 100vw;
+  max-width: 100vw;
 
   .column {
     flex: 1 1 var(--column-flex-basis);
+    max-width: var(--column-flex-basis);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

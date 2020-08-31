@@ -65,9 +65,6 @@ export class AppearanceComponent implements OnInit {
     );
   }
 
-
-
-
   async shouldSetDarkMode(): Promise<void> {
       if (this.useSystemThemeMode) {
         let systemDarkModeOn: boolean;
@@ -107,35 +104,6 @@ export class AppearanceComponent implements OnInit {
       window['NavigationBar'].backgroundColorByHexString(navigationBarColor, ligthNavigationBar);
     }
   }
-
-
-
-
-
-
-  // shouldSetDarkModeOld(): void {
-  //   if (this.useSystemThemeMode) {
-  //     this.setTheme(window.navigator.userAgent.includes('AndroidDarkMode'));
-  //   } else {
-  //     this.setTheme(this.darkThemeEnabled);
-  //   }
-  // }
-
-  // setThemeold(dark: boolean) {
-  //   document.body.classList.toggle('dark', dark);
-  //   if (dark) {
-  //     window['StatusBar'].styleLightContent();
-  //   } else {
-  //     window['StatusBar'].styleDefault();
-  //   }
-  //   const statusBarColor = getComputedStyle(document.body).getPropertyValue('--status-bar-background').trim();
-  //   window['StatusBar'].backgroundColorByHexString(statusBarColor);
-  //   if (this.platform.is('android') && window.hasOwnProperty('NavigationBar')) {
-  //     const navigationBarColor = dark ? '#000000' : '#ffffff';
-  //     const ligthNavigationBar = dark ? false : true;
-  //     window['NavigationBar'].backgroundColorByHexString(navigationBarColor, ligthNavigationBar);
-  //   }
-  // }
 
   updateDefaultTypeForSearch(event): void {
     if (event.detail.value !== this.defaultSearchType) {

@@ -75,7 +75,7 @@ export class SearchService {
           map((singleRepoResults: BoaResource[]) => {
             return singleRepoResults.map((result: BoaResource) => {
               result.type = getResourceType(result);
-              result.repositoryName = repository.name;
+              result.repositoryName = `${repository.name} / ${this.getCatalogTitle(repository, result.catalog_id)}`;
               return result;
             });
           }),
@@ -88,6 +88,11 @@ export class SearchService {
         this.apiRequestsCounter += 1;
       })
     );
+  }
+
+  getCatalogTitle(repository: BoaRepository, catalogId: string): string {
+    return repository.catalogs.find(catalog => catalog.key === catalogId).title;
+
   }
 
   createRepositoryRequestUrl(value: string, repository: BoaRepository) {

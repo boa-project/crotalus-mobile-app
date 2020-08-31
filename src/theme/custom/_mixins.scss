@@ -11,3 +11,10 @@
     color: $color;
   }
 }
+
+@mixin repository-label-ellipsis {
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}

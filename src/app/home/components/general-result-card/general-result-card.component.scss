@@ -1,5 +1,6 @@
 @import "responsive-breakpoints";
 @import "sass-variables";
+@import "mixins";
 
 ion-card {
   margin-bottom: 25px;
@@ -12,17 +13,21 @@ ion-card {
 
   .repository-name {
     flex-grow: 1;
-    text-align: center;
     color: var(--ion-color-medium-tint);
-    padding-right: 80px;
+    margin-left: 10px;
+    padding-right: 30px;
+    @include repository-label-ellipsis;
   }
 
   ion-chip {
     color: var(--ion-color-crotalus);
     border-color: var(--ion-color-crotalus);
+    flex: 0 0 auto;
 
     ion-icon {
       color: var(--ion-color-crotalus);
+      @include icon-size(18px);
+      margin-right: 4px;
     }
 
 

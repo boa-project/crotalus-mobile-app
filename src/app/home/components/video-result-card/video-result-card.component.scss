@@ -1,3 +1,5 @@
+@import "mixins";
+
 :host {
   --thumbnail-size: 320px;
 }
@@ -14,7 +16,9 @@ ion-card-header {
   span.repository-name {
     color: var(--ion-color-medium-tint);
     font-size: 16px;
-    font-weight: 300; 
+    font-weight: 300;
+    display: block;
+    @include repository-label-ellipsis;
   }
   
   ion-card-title {
